@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Project</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <center>
+        <h1 style="margin-top:20px;">Simple Calculator</h1>
+        <div id="calc">
+            <div id="result">
+            </div>
+            <div class="container">
+                <div class="row">
+                    <button class="buttons green" onclick="clearResult()"><em>AC</em></button>
+                    <button class="buttons green" onclick="backspace()">Del</button>
+                    <button class="buttons green" onclick="insertSymbol('**');insertNumber(2)">x<sup>2</sup></button>
+                    <button class="buttons green" onclick="insertSymbol('/')">&divide;</button>
+                </div>
+                <div class="row">
+                    <button class="buttons" onclick="insertNumber(7)">7</button>
+                    <button class="buttons" onclick="insertNumber(8)">8</button>
+                    <button class="buttons" onclick="insertNumber(9)">9</button>
+                    <button class="buttons green" onclick="insertSymbol('*')">x</button>
+                </div>
+                <div class="row">
+                    <button class="buttons" onclick="insertNumber(4)">4</button>
+                    <button class="buttons" onclick="insertNumber(5)">5</button>
+                    <button class="buttons" onclick="insertNumber(6)">6</button>
+                    <button class="buttons green" onclick="insertSymbol('-')">-</button>
+                </div>
+                <div class="row">
+                    <button class="buttons" onclick="insertNumber(1)">1</button>
+                    <button class="buttons" onclick="insertNumber(2)">2</button>
+                    <button class="buttons" onclick="insertNumber(3)">3</button>
+                    <button class="buttons green" onclick="insertSymbol('+')">+</button>
+                </div>
+                <div class="row">
+                    <button class="buttons" onclick="insertNumber('.')">.</button>
+                    <button class="buttons" onclick="insertNumber(0)">0</button>
+                    <button class="buttons green" onclick="insertSymbol('%')">%</button>
+                    <button class="buttons green" onclick="calculate()">=</button>
+                </div>
+            </div>
+        </div>
+    </center>
+    <script>
+		var result = document.getElementById("result");
+		var operators = ['+', '-', '*', '/'];
+
+		function insertNumber(num) {
+			if (result.innerHTML === '0' && num !== '.') {
+				result.innerHTML = num;
+			} else {
+				result.innerHTML += num;
+			}
+		}
+
+		function insertSymbol(sym) {
+            // Preventing two adjacent operators
+			if (operators.includes(result.innerHTML.slice(-1))) {
+				result.innerHTML = result.innerHTML.slice(0, -1);
+			}
+			result.innerHTML += sym;
+		}
+
+		function clearResult() {
+			result.innerHTML = '0';
+		}
+
+		function backspace() {
+            // removing last character of the expression using slice
+			result.innerHTML = result.innerHTML.slice(0, -1);
+			if (result.innerHTML === '') {
+				result.innerHTML = '0';
+			}
+		}
+
+		function calculate() {
+			try {
+				result.innerHTML = eval(result.innerHTML);
+			} catch (err) {
+                //Incase of invalid expressions
+				result.innerHTML = 'Error';
+			}
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>
